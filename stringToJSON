@@ -1,0 +1,29 @@
+convertToJSON = (input) => {
+
+    let objectFormat = [];
+    input = input
+        .filter(i => i.length)
+        .map((i, idx) => {
+            i = i.split(' ').filter(x => x.length);
+            if (idx !== 0) {
+                i.splice(0, 0);
+            }
+            return i;
+        });
+
+    let [header, ...data] = input;
+    for (let idx = 0; idx < data.length; idx++) {
+        let newObj = {};
+        for (let index = 0; index < header.length; index++) {
+            if (typeof newObj[header[index]] === 'undefined') {
+                newObj[header[index]] = '';
+            }
+            let value = data[idx][index];
+            newObj[header[index]] = typeof value === 'undefined' ? '' : value;
+        }
+
+        objectFormat.push(newObj);
+    }
+
+    return objectFormat;
+}
